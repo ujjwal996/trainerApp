@@ -1,0 +1,76 @@
+
+
+    <ion-label>Choose Category to build diet for</ion-label>
+    <ion-list >
+      <ion-item>
+        <ion-label> Category 1 </ion-label>
+        <ion-toggle (ionChange)="updateGrid()" [(ngModel)]="categoryChoice">Category 1</ion-toggle>
+      </ion-item>
+    </ion-list>
+
+<div *ngIf="update">
+  <ion-grid>
+    <ion-row>
+      <ion-col> Days </ion-col>
+      <ion-col> Breakfast </ion-col>
+      <ion-col> Lunch </ion-col>
+      <ion-col> Dinner </ion-col>
+    </ion-row>
+    <ion-row *ngFor="let day of days">
+      <ion-col> {{day.date}} </ion-col>
+      <ion-col>
+         <ion-card>
+           <ion-card-header>
+             {{day.breakfast.nutritionSpecs}}
+             </ion-card-header>
+             <ion-card-content>
+               <ion-card-title> {{day.breakfast.items.name}} </ion-card-title>
+               <p> {{day.breakfast.items.quantity}}, {{day.breakfast.items.measurementIn}} </p>
+
+               <ion-card-actions>
+                 <button (click)= "showAlternatives()"> Show alternatives </button>
+
+
+               </ion-card-actions>
+             </ion-card-content>
+         </ion-card>
+       </ion-col>
+       <ion-col>
+         <ion-card>
+           <ion-card-header>
+             {{day.lunch.nutritionSpecs}}
+             </ion-card-header>
+             <ion-card-content>
+               <ion-card-title> {{day.lunch.items.name}} </ion-card-title>
+               <p> {{day.lunch.items.quantity}}, {{day.lunch.items.measurementIn}} </p>
+
+               <ion-card-actions>
+                 <button> Show alternatives </button>
+
+               </ion-card-actions>
+             </ion-card-content>
+         </ion-card>
+        </ion-col>
+        <ion-col>
+          <ion-card>
+            <ion-card-header>
+              {{day.dinner.nutritionSpecs}}
+              </ion-card-header>
+              <ion-card-content>
+                <ion-card-title> {{day.dinner.items.name}} </ion-card-title>
+                <p> {{day.dinner.items.quantity}}, {{day.dinner.items.measurementIn}} </p>
+
+                <ion-card-actions>
+                  <button> Show alternatives </button>
+
+                </ion-card-actions>
+              </ion-card-content>
+          </ion-card>
+         </ion-col>
+     </ion-row>
+   </ion-grid>
+ </div>
+<button > Approve </button>
+<ion-footer *ngIf="updated">
+  <ion-toolbar>This diet is for {{categoryChoice}}</ion-toolbar>
+</ion-footer>

@@ -1,0 +1,40 @@
+<!--
+  Generated template for the YourClientsPage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>your-clients</ion-title>
+  </ion-navbar>
+  <h2>Your info</h2> {{trainerInfo | json}}
+</ion-header>
+
+
+<ion-content padding>
+  <ion-searchbar [(ngModel)]="searchQuery"></ion-searchbar>
+  <p>{{searchQuery}}</p>
+  <ion-card>
+    <ion-card-header>
+      Active Clients
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <button ion-item *ngFor = "let user of users" (click)="openUserPage(user)">
+
+          <ion-card>
+            <ion-item>
+              <ion-avatar>
+                <ion-img></ion-img>
+              </ion-avatar>
+              <h2> {{user.name}} </h2>
+            </ion-item>
+          </ion-card>
+
+        </button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

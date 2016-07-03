@@ -1,0 +1,10 @@
+{
+  "appId": "trainerapp",
+  "apiKey": "04cdebe8b03f25b34c9ea6a55a09ddc16d2e0936c29ca74d0fcede56347f2903",
+  "public": "./www",
+  "ignore": [
+    "stamplay.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

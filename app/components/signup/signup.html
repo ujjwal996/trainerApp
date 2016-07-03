@@ -1,0 +1,29 @@
+<ion-card>
+  <ion-card-header>
+    Register 
+  </ion-card-header>
+  <ion-card-content>
+    <form [ngFormModel]="signupForm" >
+      <ion-item>
+        <ion-label primary floating> Display Name</ion-label>
+        <ion-input type="text" ngControl="displayName"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label primary floating>Email Id</ion-label>
+        <ion-input type="email" ngControl="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label primary floating> Password </ion-label>
+        <ion-input type="password" ngControl="password"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label primary floating> Confirm Password </ion-label>
+        <ion-input type="password" ></ion-input>
+      </ion-item>
+      <button (click)="signupAttempt()"> Register </button>
+    </form>
+    <ion-item *ngIf="signupfailed">
+      <p> Could not register you in as an error occured, please try again later</p>
+    </ion-item>
+  </ion-card-content>
+</ion-card>

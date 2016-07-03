@@ -1,0 +1,22 @@
+
+<ion-card>
+  <ion-card-header>
+    Login
+  </ion-card-header>
+  <ion-card-content>
+    <form [ngFormModel]="loginForm" >
+      <ion-item>
+        <ion-label primary floating>Email Id</ion-label>
+        <ion-input type="email" ngControl="email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label primary floating> Password </ion-label>
+        <ion-input type="password" ngControl="password"></ion-input>
+      </ion-item>
+      <button (click)="loginAttempt()"> Login </button>
+    </form>
+    <ion-item *ngIf="loginfailed">
+      <p> Could not log you in as an error occured, please try again later</p>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
