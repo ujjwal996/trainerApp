@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ControlGroup} from '@angular/common';
-import { Events } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
+import { TabLayoutPage } from '../../pages/tab-layout/tab-layout';
 declare var Stamplay;
 
 @Component({
@@ -13,7 +14,7 @@ export class Login {
   loginForm: ControlGroup;
   text: string;
 
-  constructor(private fb:FormBuilder, private event: Events) {
+  constructor(private fb:FormBuilder, private nav : NavController) {
     this.loginForm = fb.group({
       email:[''],
       password :['']
@@ -23,9 +24,11 @@ export class Login {
   loginAttempt(){
 
     Stamplay.User.login(this.loginForm.value).then((res)=>{
-      this.event.publish('trainerloginSuccess', res)
+      console.log("here");
+     this.nav.setRoot(TabLayoutPage , {"trainerData": res})
     },(err)=>{
       this.loginfailed=true;
     });
+
   }
 }

@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, Events} from 'ionic-angular';
 
-import { YourClientsPage } from '../your-clients/your-clients';
+import { TabLayoutPage } from '../tab-layout/tab-layout';
 import { Login } from '../../components/login/login';
 import { Signup } from '../../components/signup/signup';
 
@@ -14,13 +14,27 @@ declare var Stamplay;
 export class HomePage {
   trainerInfo:any;
   constructor(private nav: NavController, private events:Events) {
-    this.events.subscribe('trainerloginSuccess', (trainerData)=>{
-      this.trainerInfo = trainerData[0];
-      this.nav.setRoot(YourClientsPage, {'trainerInfo' : this.trainerInfo });
-    });
+
   }
 
+ ionViewWillEnter(){
+   Stamplay.User.currentUser().then((res)=>{
+     if(res.user._id != undefined )
+     {
+       console.log(res.user._id);
+       this.nav.setRoot(TabLayoutPage, {"trainerData" : res.user});
+     }
+   });
+ }
 
+ ionViewDidEnter(){
+   Stamplay.User.currentUser().then((res)=>{
+     if(res.user._id != undefined )
+     {
+       this.nav.setRoot(TabLayoutPage);
+     }
+   });
+ }
 
   getcurrentuser(){
     Stamplay.User.currentUser().then((res)=>{

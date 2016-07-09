@@ -1,156 +1,68 @@
 import { Component } from '@angular/core';
-import { Modal, NavController } from 'ionic-angular';
+import { NavController, Alert } from 'ionic-angular';
 
-import { AlternativesModal } from '../../components/alternatives-modal/alternatives-modal';
+declare var Stamplay;
 
 @Component({
-  selector: 'diet-builder',
-  templateUrl: 'build/components/diet-builder/diet-builder.html'
+  templateUrl: 'build/pages/diet-builder/diet-builder.html',
 })
-export class DietBuilder {
-  update: boolean = false;
-  categoryChoice : string;
-  text: string;
-  days = [
-    {
-      date: "date and time",
-      breakfast : {
-      nutritionSpecs: 'nutrition value',
-      items: {
-        name : 'meal item' ,
-        quantity : 9 ,
-        measurementIn : 'cups'
-      },
-      alternates : [
-        {
-        name: 'altenrate2',
-        quantity : 9 ,
-        measurementIn : 'cups'
-      },
-      {
-      name: 'altenrate2',
-      quantity : 9 ,
-      measurementIn : 'cups'
-    }
-    ]
-    },
-    lunch : {
-      nutritionSpecs: 'nutrition value',
-      items: {
-        name : 'meal item' ,
-        quantity : 9 ,
-        measurementIn : 'cups'
-      },
-      alternates : [
-        {
-        name: 'altenrate2',
-        quantity : 9 ,
-        measurementIn : 'cups'
-      },
-      {
-      name: 'altenrate2',
-      quantity : 9 ,
-      measurementIn : 'cups'
-    }
-    ]
-    },
-    dinner:{
-      nutritionSpecs: 'nutrition value',
-      items: {
-        name : 'meal item' ,
-        quantity : 9 ,
-        measurementIn : 'cups'
-      },
-      alternates : [
-        {
-        name: 'altenrate2',
-        quantity : 9 ,
-        measurementIn : 'cups'
-      },
-      {
-      name: 'altenrate2',
-      quantity : 9 ,
-      measurementIn : 'cups'
-    }
-    ]
-    }
-  },
-  {
-    date: "date and time",
-    breakfast : {
-    nutritionSpecs: 'nutrition value',
-    items: {
-      name : 'meal item' ,
-      quantity : 9 ,
-      measurementIn : 'cups'
-    },
-    alternates : [
-      {
-      name: 'altenrate2',
-      quantity : 9 ,
-      measurementIn : 'cups'
-    },
-    {
-    name: 'altenrate2',
-    quantity : 9 ,
-    measurementIn : 'cups'
-  }
-  ]
-  },
-  lunch : {
-    nutritionSpecs: 'nutrition value',
-    items: {
-      name : 'meal item' ,
-      quantity : 9 ,
-      measurementIn : 'cups'
-    },
-    alternates : [
-      {
-      name: 'altenrate2',
-      quantity : 9 ,
-      measurementIn : 'cups'
-    },
-    {
-    name: 'altenrate2',
-    quantity : 9 ,
-    measurementIn : 'cups'
-  }
-  ]
-  },
-  dinner:{
-    nutritionSpecs: 'nutrition value',
-    items: {
-      name : 'meal item' ,
-      quantity : 9 ,
-      measurementIn : 'cups'
-    },
-    alternates : [
-      {
-      name: 'altenrate2',
-      quantity : 9 ,
-      measurementIn : 'cups'
-    },
-    {
-    name: 'altenrate2',
-    quantity : 9 ,
-    measurementIn : 'cups'
-  }
-  ]
-  }
-}
-]
+export class DietBuilderPage {
+  categoryChoice : any;
+  update:boolean;
+  dayresdata : any;
+  openmeals:boolean;
+  itemresdata:any;
+
   constructor(private nav: NavController) {
 
   }
-  updateGrid(){
-    if(this.categoryChoice!=undefined){
-      this.update=true;
-      console.log(this.categoryChoice);
-    }
+  presentcategorySheet(){
+    let categoryAlert = Alert.create();
+    categoryAlert.setTitle('Choose category to edit diet for');
+
+    categoryAlert.addInput({
+      type : 'radio',
+      label : 'Category1',
+      value : 'category1'
+    });
+
+    categoryAlert.addButton({
+      text : 'Load Default',
+      handler : data =>{
+        this.categoryChoice = data;
+        let makeDiet= setTimeout(()=>{
+          this.update=true;
+        },2000);
+        this.loadDietFor(this.categoryChoice);
+      }
+    });
+
+    this.nav.present(categoryAlert);
   }
 
-  showAlternatives(){
-    let altmodal = Modal.create(AlternativesModal);
-    this.nav.present(altmodal);
+  loadDietFor(categoryName){
+    Stamplay.Object("usercategories").get({name : categoryName}).then((res)=>{
+      let categoryid = res.data[0]._id;
+
+      Stamplay.Object("perdaydiet").get({ categoryFor : categoryid}).then((res)=>{
+        this.dayresdata = res.data;
+
+      });
+    })
+  }
+
+  showmealsOf(day){
+    let loadmeal = setTimeout(()=>{
+      this.openmeals = true;
+    }, 2000);
+    let mealid = day.meals[0];
+    Stamplay.Object("dietplans").get({ _id : mealid}).then((mealres=>{
+      let breakfastId = mealres.data[0].breakfastItems[0];
+      let lunchId = mealres.data[0].lunchItems[0];
+      let dinnerId = mealres.data[0].dinnerItems[0];
+      Stamplay.Object("items").get({_id : breakfastId}).then((res)=>{
+        this.itemresdata = res.data;
+      });
+    }))
   }
 }

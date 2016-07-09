@@ -1,0 +1,41 @@
+<ion-card>
+  <ion-card-header>
+    Your Session Builder to Reach out to more People
+  </ion-card-header>
+  <ion-card-content>
+    <form [ngFormModel] = "sessionForm">
+      <ion-item>
+        <ion-label primary floating>Name to display for the Session</ion-label>
+        <ion-input type="text" ngControl = "name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label primary floating>Date Start</ion-label>
+        <ion-datetime type="date" ngControl = "date_start"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label primary floating>Date End</ion-label>
+        <ion-datetime type ="date" ngControl = "date_end"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label primary floating>Time Start</ion-label>
+        <ion-input type="text" ngControl = "time_start"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label primary floating>Time End</ion-label>
+        <ion-input type="text" ngControl = "time_end"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label primary floating>Location</ion-label>
+        <ion-input type = "text" ngControl = "location"></ion-input>
+      </ion-item>
+    </form>
+
+      <button (click)="submitSessionform()"> Next </button>
+  </ion-card-content>
+
+</ion-card>

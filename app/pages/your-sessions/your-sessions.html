@@ -1,0 +1,47 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>your-sessions</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-segment [(ngModel)] = "viewChoice">
+    <ion-segment-button value = 'view'> View   </ion-segment-button>
+    <ion-segment-button value = 'make'> Start   </ion-segment-button>
+  </ion-segment>
+
+<div [ngSwitch]="viewChoice">
+
+<div *ngSwitchCase = "'view'">
+    <ion-list>
+      <ion-item>
+
+        <ion-card>
+          <ion-card-header>
+            Session Name
+            <ion-badge item-right> Hits </ion-badge>
+            <ion-badge item-left> Total Enrolled </ion-badge>
+          </ion-card-header>
+          <ion-card-content>
+              <p>Actions regarding the session = "Open Page | etc"</p>
+          </ion-card-content>
+        </ion-card>
+
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngSwitchCase = "'make'">
+
+    <build-session></build-session>
+
+  </div>
+
+
+  </div>
+
+</ion-content>
