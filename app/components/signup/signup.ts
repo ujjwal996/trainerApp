@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, ControlGroup} from '@angular/common';
 
 declare var Stamplay;
-
+/*
+This component is embedded in the Home Component and is displayed the first on the Home Page.
+It takes care of Stamplay.User.signup() to register a user. Once registered the User has to manually
+navigate to login segment and Login to the app.
+The form is signupForm of type ControlGroup handled by using a FormBuilder
+*/
 @Component({
   selector: 'trainer-signup-form',
   templateUrl: 'build/components/signup/signup.html'

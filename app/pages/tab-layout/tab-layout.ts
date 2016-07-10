@@ -6,7 +6,11 @@ import { YourClientsPage } from '../your-clients/your-clients';
 import { DietBuilderPage } from '../diet-builder/diet-builder';
 import { PersonalPage } from '../personal/personal';
 
-
+declare var Stamplay;
+/*
+This is the Basic display of the features available to the trainer in form of Tabs.
+The logout button is displayed in the footer of every tab.
+*/
 @Component({
   templateUrl: 'build/pages/tab-layout/tab-layout.html'
 })
@@ -24,5 +28,9 @@ tab4Root : any;
     this.tab4Root = PersonalPage;
     this.trainerInfo = this.params.get('trainerData');
 
+  }
+
+  logoutUser(){
+    Stamplay.User.logout();
   }
 }
